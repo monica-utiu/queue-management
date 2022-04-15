@@ -1,18 +1,26 @@
 package BusinessLogic;
 
+import BusinessLogic.strategy.SelectionPolicy;
+import BusinessLogic.strategy.ShortestQueueStrategy;
+import BusinessLogic.strategy.Strategy;
+import BusinessLogic.strategy.TimeStrategy;
 import model.Server;
 import model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Scheduler {
-    private List<Server> servers;
-    private int maxServers;
-    private int maxTaskServer;
+    private final List<Server> servers;
     private Strategy strategy;
 
-    public Scheduler(int maxServers,int maxTaskServer) {
+    public Scheduler(int maxServers, SelectionPolicy strategy) {
+       servers = new ArrayList<>();
+       this.changeStrategy(strategy);
+       for(int i=0;i<maxServers;i++) {
+           servers.add(new Server());
 
+       }
     }
 
     public void changeStrategy(SelectionPolicy policy) {
@@ -27,6 +35,7 @@ public class Scheduler {
 
     public void dispatchTask(Task t) {
 
+        strategy.addTask(servers,t);
     }
 
     public List<Server> getServers() {

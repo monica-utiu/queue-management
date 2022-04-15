@@ -1,4 +1,4 @@
-package BusinessLogic;
+package BusinessLogic.strategy;
 
 import model.Server;
 import model.Task;
